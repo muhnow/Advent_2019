@@ -2,7 +2,9 @@ const inputTools = require('../Tools/input-tools.js');
 const _ = require('lodash');
 const assert = require('assert');
 
-var inputs = inputTools.readInput('./input.txt');
+var inputs = inputTools.readLines('./input.txt', '\n');
+
+console.log(inputs);
 
 /* Part 1 */
 var mass_sum = 0;
