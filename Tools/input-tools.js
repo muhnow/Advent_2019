@@ -4,10 +4,18 @@ const _ = require('lodash');
 
 module.exports = {
 	readLines : readLines,
-	parseAllInt: parseAllInt
+	parseAllInt: parseAllInt,
+	generateSeperator: generateSeperator
 };
 
 
+// Generates a RegEx based on a given list of seperators
+function generateSeperator(seperators) {
+	return new RegExp('[' + seperators.join('') + ']', 'g');
+}
+
+// Reads the file at the given path and splits up the contents based
+// on the provided seperator
 function readLines(path, seperator) {
 	var inputs = fs.readFileSync(path, 'utf-8')
 					.split(seperator)
@@ -21,6 +29,7 @@ function readLines(path, seperator) {
 	return inputs;
 }
 
+// Takes a list and parses the contents to integers
 function parseAllInt(list) {
 	var newList = [];
 

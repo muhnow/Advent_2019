@@ -2,7 +2,9 @@ const inputTools = require('../Tools/input-tools.js');
 const _ = require('lodash');
 const assert = require('assert');
 
-var inputs = inputTools.readLines('./input.txt', '\n');
+const seperators = ['\n', '\r'];
+
+var inputs = inputTools.readLines('./input.txt', inputTools.generateSeperator(seperators));
 
 console.log(inputs);
 
