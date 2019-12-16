@@ -32,91 +32,6 @@ function resetState() {
 	currentPoint = {x: 150, y: 150};
 }
 
-function findClosestIntersection(firstWire, secondWire) {
-	resetState();
-
-	traceWire(firstWire);
-	currentPoint = {x: 150, y: 150};
-	//console.log("second wire");
-	traceWire(secondWire);
-	
-	var closestDistance = 0;
-	var closestIntersection;
-
-	_.forEach(intersections, function(intersection) {
-		var currDistance = Math.abs(150 - intersection.x) + Math.abs(150 - intersection.y);
-
-		if (closestDistance == 0 || currDistance < closestDistance) {
-			closestDistance = currDistance;
-			closestIntersection = intersection;
-		}
-	});
-
-	return {intersection: closestIntersection, distance: closestDistance};
-}
-
-function traceWire(wire) {
-	_.forEach(wire, function(move) {
-		var direction = move[0];
-		var numOfSteps = parseInt(move.substring(1, move.length));
-
-		//console.log(move);
-
-		for(var step = 0; step < numOfSteps; step++) {
-			var x = currentPoint.x;
-			var y = currentPoint.y;
-			var coordKey = (x + "," + y);
-			//console.log(coordKey);
-
-			// find a
-			var coord = _.find(wirePaths, function(path) {
-				return Object.keys(path).includes(coordKey);
-			});
-
-			//console.log(coord);
-
-			if (coord === undefined) {
-				wirePaths.push({[coordKey]: '-'});
-			} else {
-				if (coord[x + "," + y] === '-') {
-					var indexOfCoord = _.indexOf(wirePaths, {[coordKey]: '-'});
-
-					wirePaths[indexOfCoord] = {[coordKey]: '+'};
-					//console.log("intersection met");
-					intersections.push({x: x, y: y});
-				} else if (coordValue === '+') {
-					// do nothing?
-				} 
-			}
-
-			switch(direction) {
-				case "R":
-					currentPoint.x += 1;
-					break;
-				case "L":
-					currentPoint.x += -1;
-					break;
-				case "U":
-					currentPoint.y += 1;
-					break;
-				case "D":
-					currentPoint.y += -1;
-					break;
-				default:
-					console.log("default");
-					break;
-			}
-
-			
-
-		}
-
-		//console.log("finished moving");
-		//console.log(currentPoint);
-	});
-
-}
-
 function findClosestIntersectionImproved(firstWire, secondWire) {
 	resetState();
 
@@ -190,30 +105,6 @@ function traceWireImproved(wire, wirePath) {
 	//console.log(wirePath);
 	return wirePath;
 }
-
-/*
-console.time('Improved 7/8');
-console.log(findClosestIntersectionImproved(wire7, wire8));
-console.timeEnd('Improved 7/8');
-console.time('Original 7/8');
-console.log(findClosestIntersection(wire7, wire8));
-console.timeEnd('Original 7/8');
-
-console.time('Improved 3/4');
-console.log(findClosestIntersectionImproved(wire3, wire4));
-console.timeEnd('Improved 3/4');
-console.time('Original 3/4');
-console.log(findClosestIntersection(wire3, wire4));
-console.timeEnd('Original 3/4');
-
-console.time('Improved 5/6');
-console.log(findClosestIntersectionImproved(wire5, wire6));
-console.timeEnd('Improved 5/6');
-console.time('Original 5/6');
-console.log(findClosestIntersection(wire5, wire6));
-console.timeEnd('Original 5/6');
-*/
-
 
 console.time('Improved 1/2');
 console.log(findClosestIntersectionImproved(wire1, wire2));
